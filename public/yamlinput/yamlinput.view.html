@@ -1,0 +1,102 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="signInTitle">b I - t O o L</div>
+		</div>
+		<hr>
+		<hr>
+	</div>
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<form role="form" ng-submit="vm.login()" name="form">
+			<h3>Date</h3>
+			<div data-ng-repeat="bidate in bidates track by $index">
+				<div class="row">
+					<div class="col-md-2">
+						<label for="startdate">Date {{$index}}</label>
+					</div>
+					<div class="col-md-4">
+						<input type="text" onfocus="(this.type='date')" ng-model="vm.bidates[$index].startdate" class="form-control" name="startdate" placeholder="Enter start date">
+					</div>
+					<div class="col-md-4">
+						<input type="text" onfocus="(this.type='date')" ng-model="vm.bidates[$index].enddate" class="form-control" name="enddate" placeholder="Enter end date">
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-default btn-sm" ng-show="$last" ng-click="removeDate()">
+							<span class="glyphicon glyphicon-minus"></span>
+						</button>
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-default btn-sm" ng-click="addNewDate()">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<h3>Input</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputtype">Input Type </label> <select class="form-control" id="inputtype" ng-model="vm.inputtype">
+							<option>1-DataByEasyIdRunner</option>
+							<option>2-DataExtractRunner</option>
+							<option>3-DataByQueryParamRunner</option>
+							<option>4-DataExtractDomainRunner</option>
+							<option>5-DataByUrlEasyIdRunner</option>
+							<option>6-DataByQueryParamEasyIdRunner</option>
+							<option>7-DataByDomainEasyIdRunner</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="inputdevice">Input Device </label> <br> <label>
+						<input type="radio" id="inputdevice" ng-model="vm.devicetype"
+						value="pc">PC
+					</label> <label> <input id="inputdevice" type="radio"
+						ng-model="vm.devicetype" value="mobile"> MOBILE
+					</label>
+				</div>
+			</div>
+			<h3>Path</h3>
+			<div data-ng-repeat="bipath in bipaths track by $index">
+				<div class="row">
+					<div class="col-md-2">
+						<label for="path">Path {{$index}}</label>
+					</div>
+					<div class="col-md-8">
+						<input type="text" ng-model="vm.bipaths[$index]" class="form-control" name="startdate" placeholder="Enter input file path">
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-default btn-sm" ng-show="$last" ng-click="removePath()">
+							<span class="glyphicon glyphicon-minus"></span>
+						</button>
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-default btn-sm" ng-click="addNewPath()">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<h3>User Info</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<label for="userid">UserId</label> <input type="text" class="form-control" id="userid" ng-model="vm.userid">
+				</div>
+				<div class="col-md-6">
+					<label for="mailid">MailId</label> <input type="email" class="form-control" id="mailid" ng-model="vm.mailid">
+				</div>
+			</div>
+			<hr>
+			<hr>
+			<button type="submit" class="btn btn-default" ng-enabled="form.$invalid || vm.dataLoading">Submit</button>
+		</form>
+	</div>
+	<div class="col-md-3"></div>
+	<div id="bidates">
+		<!--  {{ bidates }}-->
+	</div>
+	<div id="bipaths">
+		<!--  {{ bipaths }}-->
+	</div>
+</div>
