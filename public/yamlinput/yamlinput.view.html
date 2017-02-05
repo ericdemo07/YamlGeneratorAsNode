@@ -6,7 +6,32 @@
 		<hr>
 		<hr>
 	</div>
-	<div class="col-md-3"></div>
+	<div class="col-md-3">
+		<div class="signInWarning">
+			<span style="color:red" ng-show="form.inputtype.$dirty && form.inputtype.$error.required">
+							&#9862 InputType is required
+			</span>
+			<span style="color:red" ng-show="form.inputdevice.$dirty && form.inputdevice.$error.required">
+							&#9862 InputDevice is required
+			</span>
+			<span style="color:red" ng-show="form.userid.$dirty && form.userid.$error.required">
+							&#9862 UserId is required
+			</span>
+			<span style="color:red" ng-show="form.mailid.$dirty && form.mailid.$invalid">
+				<span ng-show="form.mailid.$dirty && form.mailid.$error.required">
+					&#9862 Email is required
+				</span>
+			<span ng-show="form.mailid.$error.email">
+					&#9862 Invalid email address
+				</span>
+			<br>
+			</span>
+			<span style="color:red" ng-show="responseObject">
+        <br>
+            	&#9862 {{responseObject}}
+        </span>
+		</div>
+	</div>
 	<div class="col-md-6">
 		<form role="form" ng-submit="vm.login()" name="form">
 			<h3>Date</h3>
@@ -37,7 +62,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputtype">Input Type </label> <select class="form-control" id="inputtype" ng-model="vm.inputtype">
+						<label for="inputtype">Input Type </label> <select class="form-control" name="inputtype" id="inputtype" ng-model="vm.inputtype" required>
 							<option>1-DataByEasyIdRunner</option>
 							<option>2-DataExtractRunner</option>
 							<option>3-DataByQueryParamRunner</option>
@@ -48,12 +73,12 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" ng-init="vm.devicetype=pc">
 					<label for="inputdevice">Input Device </label> <br> <label>
-						<input type="radio" id="inputdevice" ng-model="vm.devicetype"
-						value="pc">PC
+						<input type="radio" name= "inputdevice" id="inputdevice" ng-model="vm.devicetype"
+						value="pc" ng-required="!vm.devicetype">PC
 					</label> <label> <input id="inputdevice" type="radio"
-						ng-model="vm.devicetype" value="mobile"> MOBILE
+						ng-model="vm.devicetype" value="mobile" ng-required="!vm.devicetype"> MOBILE
 					</label>
 				</div>
 			</div>
@@ -81,10 +106,10 @@
 			<h3>User Info</h3>
 			<div class="row">
 				<div class="col-md-6">
-					<label for="userid">UserId</label> <input type="text" class="form-control" id="userid" ng-model="vm.userid">
+					<label for="userid">UserId <input type="text" name = "userid" class="form-control" id="userid" ng-model="vm.userid" required></label>
 				</div>
 				<div class="col-md-6">
-					<label for="mailid">MailId</label> <input type="email" class="form-control" id="mailid" ng-model="vm.mailid">
+					<label for="mailid">MailId <input type="email" name="mailid" class="form-control" id="mailid" ng-model="vm.mailid" required></label>
 				</div>
 			</div>
 			<hr>

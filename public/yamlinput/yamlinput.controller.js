@@ -38,7 +38,10 @@
 
         function login() {
             vm.dataLoading = true;
-            QueryService.GenerateYaml(vm).then(function(response) {});
+            QueryService.GenerateYaml(vm).then(function(response) {
+                console.log("In controller : [" + response);
+                $scope.responseObject = response;
+            });
         };
     }
 })();

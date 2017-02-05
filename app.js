@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var empty = require('is-empty');
 var randomstring = require("randomstring");
 //var fileUpload = require('express-fileupload');
 var StringBuilder = require("string-builder");
@@ -16,6 +17,17 @@ app.post('/generateyaml', function(req, res) {
     console.log(req.body);
     var yamlObject = req.body;
     var bidateAsMap = yamlObject.bidates;
+    var bipathAsMap = yamlObject.bipaths;
+    if (empty(bidateAsMap)) {
+        console.log("At least one pair of start and end date is required");
+        res.send("At least one pair of start and end date is required");
+        return;
+    }
+    if (empty(bipathAsMap)) {
+        console.log("At least one path is required");
+        res.send("At least one path is required");
+        return;
+    }
     var i = 0;
     for (var key in bidateAsMap) {
         i++;
@@ -26,7 +38,6 @@ app.post('/generateyaml', function(req, res) {
     yamlAsStringBuilder.append("input:\n");
     yamlAsStringBuilder.append(" type: " + yamlObject.inputtype.slice(0, 1) + "\n");
     yamlAsStringBuilder.append(" device: " + yamlObject.devicetype + "\n");
-    var bipathAsMap = yamlObject.bipaths;
     i = 0;
     for (var key in bipathAsMap) {
         i++;
@@ -47,6 +58,7 @@ app.post('/generateyaml', function(req, res) {
         }
         console.log("The file was saved!");
     });
+    res.send("Success");
 });
 
 //app.use(fileUpload());

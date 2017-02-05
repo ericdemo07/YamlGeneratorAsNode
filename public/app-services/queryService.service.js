@@ -13,19 +13,15 @@
                 url: "/generateyaml",
                 data: query
             });
-            return request.then(handleSuccess, handleError('Faliure'));
+            return request.then(handleSuccess, handleError);
         }
 
         function handleSuccess(data) {
-          product = data.data;
-          return product;        }
+            return data.data;
+        }
 
         function handleError(error) {
-            return function() {
-                return {
-                    success: false
-                };
-            };
+            console.log(error);
         }
     }
 })();
