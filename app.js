@@ -10,12 +10,20 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
-
+var authorisedUsers = ["ayush.shukla", "kadam.adalja", "sandeep.siva", "neeraj.sharma"];
 app.post('/generateyaml', function(req, res) {
     var yamlAsStringBuilder = new StringBuilder();
     yamlAsStringBuilder.append("date:\n");
     console.log(req.body);
     var yamlObject = req.body;
+    if (authorisedUsers.indexOf(yamlObject.userid) > -1) {
+        console.log("User with userid " + yamlObject.userid + " authorized to access BI-Tool ");
+    } else {
+        console.log("User with userid " + yamlObject.userid + " not authorized to access BI-Tool\n");
+        res.send("User with userid [" + yamlObject.userid + "] not authorized to access BI-Tool  \n In case you need further assistance, please contact us at [tech-mp-asia-da@mail.rakuten.com]");
+        return;
+    }
+
     var bidateAsMap = yamlObject.bidates;
     var bipathAsMap = yamlObject.bipaths;
     if (empty(bidateAsMap)) {
