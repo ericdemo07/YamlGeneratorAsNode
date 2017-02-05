@@ -11,16 +11,14 @@
             var request = $http({
                 method: "post",
                 url: "/generateyaml",
-                params: {
-                    brandName: query
-                }
+                data: query
             });
             return request.then(handleSuccess, handleError('Faliure'));
         }
 
         function handleSuccess(data) {
-            return data;
-        }
+          product = data.data;
+          return product;        }
 
         function handleError(error) {
             return function() {

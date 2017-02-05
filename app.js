@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var randomstring = require("randomstring");
 //var fileUpload = require('express-fileupload');
 var StringBuilder = require("string-builder");
 var app = express();
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 app.post('/generateyaml', function(req, res) {
     var yamlAsStringBuilder = new StringBuilder();
     yamlAsStringBuilder.append("date:\n");
+    console.log(req.body);
     var yamlObject = req.body;
     var bidateAsMap = yamlObject.bidates;
     var i = 0;
@@ -33,7 +35,13 @@ app.post('/generateyaml', function(req, res) {
     yamlAsStringBuilder.append("user.id: " + yamlObject.userid + "\n");
     yamlAsStringBuilder.append("mail.id: " + yamlObject.mailid + "\n");
     console.log(yamlAsStringBuilder.toString());
-    fs.writeFile("C:/E_Drive/WorkHouse/Admin-Tool/a.yaml", yamlAsStringBuilder.toString(), function(err) {
+    var yamlPath = new StringBuilder();
+    yamlPath.append("C:/E_Drive/WorkHouse/Admin-Tool/");
+    yamlPath.append(yamlObject.userid);
+    yamlPath.append(randomstring.generate());
+    yamlPath.append(".yaml");
+
+    fs.writeFile(yamlPath.toString(), yamlAsStringBuilder.toString(), function(err) {
         if (err) {
             return console.log(err);
         }
@@ -52,6 +60,6 @@ app.get('*', function(req, res) {
 });
 
 // to start express server
-app.listen(3000, function() {
+app.listen(4000, function() {
     console.log('yamlgenerator service started on port 3000!');
 });
